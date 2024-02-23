@@ -37,7 +37,7 @@ class Army
                 enemy.Units.Remove(defender);
                 Kills++;
                 // Выводим сообщение о том, кто убил кого
-                Console.WriteLine($"{Name} убил {defender.Name}");
+                Console.WriteLine($"{Name} убили {defender.Name}");
             }
             // Если армия врага еще жива, то она тоже атакует нашего крипа
             if (!enemy.IsDead())
@@ -54,7 +54,7 @@ class Army
                     Units.Remove(defender);
                     enemy.Kills++;
                     // Выводим сообщение о том, кто убил кого
-                    Console.WriteLine($"{enemy.Name} убил {defender.Name}");
+                    Console.WriteLine($"{enemy.Name} убили {defender.Name}");
                 }
             }
         }
