@@ -9,22 +9,29 @@ static class Program
     {
         List<Unit> unitsOne = new List<Unit>()
         {
-            new Soldier(36, 22, 180),
-            new Ballista(),
-            new Ballista(48, 12, 270)
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new RangedCreep(),
+            new SiegeCreep(),
         };
-        Army armyOne = new Army("Королевство кривых кулис", unitsOne);
+        Army armyOne = new Army("Силы света", unitsOne);
  
         List<Unit> unitsTwo = new List<Unit>()
         {
-            new Ballista(),
-            new Ballista(33, 8, 450),
-            new Catapult(),
-            new Soldier(200, 100, 1000)
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new MeleeCreep(),
+            new RangedCreep(),
+            new SiegeCreep(),
         };
-        Army armyTwo = new Army("Рыцари чести", unitsTwo);
+        Army armyTwo = new Army("Силы тьмы", unitsTwo);
  
-        while (armyTwo.TakingDamage(armyOne.TotalDamage()) && armyOne.TakingDamage(armyTwo.TotalDamage()));
+        armyOne.Attack(armyTwo);
  
         Console.ReadKey();
     }

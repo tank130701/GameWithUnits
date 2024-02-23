@@ -1,59 +1,79 @@
 ﻿using GameWithUnits.Models.Units;
 
 namespace GameWithUnits.Models.Army;
-
+// Класс для представления армии
 class Army
 {
-    public readonly List<Unit> Lst;
-    public readonly string Name;
- 
-    public Army(string name, List<Unit> lst)
+    // Свойство для хранения имени армии
+    public string Name { get; private set; }
+    // Список крипов в армии
+    public List<Unit> Units { get; private set; }
+    // Свойство для хранения количества убитых крипов
+    public int Kills { get; private set; }
+
+    // Конструктор, который принимает имя армии и список крипов
+    public Army(string name, List<Unit> units)
     {
         Name = name;
-        Lst = lst;
+        Units = units;
+        Kills = 0;
     }
- 
-    public int TotalDamage()
+
+    // Метод для атаки другой армии
+    public void Attack(Army enemy)
     {
-        int total = 0;
-        foreach (var unit in Lst)
-            total += unit.Damage;
-        return total;
-    }
- 
-    public int TotalArmor()
-    {
-        int total = 0;
-        foreach (var unit in Lst)
-            total += unit.Armor;
-        return total;
-    }
- 
-    public int TotalHP()
-    {
-        int total = 0;
-        foreach (var unit in Lst)
-            total += unit.HP;
-        return total;
-    }
- 
-    public bool TakingDamage(int otherDamage)
-    {
-        int totalDamage = otherDamage - TotalArmor();
-        for (int i = 0; totalDamage > 0; i = i == Lst.Count - 1 ? 0 : i + 1)
+        // Пока обе армии живы, продолжаем сражение
+        while (!IsDead() && !enemy.IsDead())
         {
-            Lst[i].MinusHP();
-            if (Lst[i].Death())
+            // Выбираем случайного крипа из своей армии
+            Unit attacker = Units[new Random().Next(Units.Count)];
+            // Выбираем случайного крипа из вражеской армии
+            Unit defender = enemy.Units[new Random().Next(enemy.Units.Count)];
+            // Атакуем вражеского крипа
+            attacker.Attack(defender);
+            // Если вражеский крип умер, удаляем его из списка и увеличиваем счетчик убийств
+            if (defender.IsDead())
             {
-                Console.WriteLine($"Из армии \"{Name}\" погиб {Lst[i].Name}");
-                Lst.RemoveAt(i--);
-                if (TotalHP() == 0)
+                enemy.Units.Remove(defender);
+                Kills++;
+                // Выводим сообщение о том, кто убил кого
+                Console.WriteLine($"{Name} убил {defender.Name}");
+            }
+            // Если армия врага еще жива, то она тоже атакует нашего крипа
+            if (!enemy.IsDead())
+            {
+                // Выбираем случайного крипа из вражеской армии
+                attacker = enemy.Units[new Random().Next(enemy.Units.Count)];
+                // Выбираем случайного крипа из нашей армии
+                defender = Units[new Random().Next(Units.Count)];
+                // Атакуем нашего крипа
+                attacker.Attack(defender);
+                // Если наш крип умер, удаляем его из списка и увеличиваем счетчик убийств врага
+                if (defender.IsDead())
                 {
-                    Console.WriteLine($"Армия \"{Name}\" уничтожена");
-                    return false;
+                    Units.Remove(defender);
+                    enemy.Kills++;
+                    // Выводим сообщение о том, кто убил кого
+                    Console.WriteLine($"{enemy.Name} убил {defender.Name}");
                 }
             }
         }
-        return true;
+        // Если армия врага мертва, выводим сообщение о победе
+        if (enemy.IsDead())
+        {
+            Console.WriteLine($"{Name} победил!");
+        }
+        // Если наша армия мертва, выводим сообщение о поражении
+        if (IsDead())
+        {
+            Console.WriteLine($"{enemy.Name} победил!");
+        }
+    }
+
+    // Метод для проверки смерти армии
+    public bool IsDead()
+    {
+        // Армия считается мертвой, если в ней нет крипов
+        return Units.Count == 0;
     }
 }
