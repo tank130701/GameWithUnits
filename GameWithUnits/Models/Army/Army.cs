@@ -5,11 +5,11 @@ namespace GameWithUnits.Models.Army;
 class Army
 {
     // Свойство для хранения имени армии
-    public string Name { get; private set; }
+    private string Name { get; set; }
     // Список крипов в армии
-    public List<Unit> Units { get; private set; }
+    private List<Unit> Units { get; set; }
     // Свойство для хранения количества убитых крипов
-    public int Kills { get; private set; }
+    private int Kills { get; set; }
 
     // Конструктор, который принимает имя армии и список крипов
     public Army(string name, List<Unit> units)
@@ -58,20 +58,24 @@ class Army
                 }
             }
         }
+        Console.WriteLine("=== Игра оконочена ===");
         // Если армия врага мертва, выводим сообщение о победе
         if (enemy.IsDead())
         {
-            Console.WriteLine($"{Name} победил!");
+            Console.WriteLine($"{Name} победили!");
         }
         // Если наша армия мертва, выводим сообщение о поражении
         if (IsDead())
         {
-            Console.WriteLine($"{enemy.Name} победил!");
+            Console.WriteLine($"{enemy.Name} победили!");
         }
+        
+        Console.WriteLine($"{Name} убили {Kills} крипов");
+        Console.WriteLine($"{enemy.Name} убили {enemy.Kills} крипов");
     }
 
     // Метод для проверки смерти армии
-    public bool IsDead()
+    private bool IsDead()
     {
         // Армия считается мертвой, если в ней нет крипов
         return Units.Count == 0;
