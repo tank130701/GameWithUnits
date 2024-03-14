@@ -1,3 +1,6 @@
 ﻿namespace GameWithUnits.Models.Units;
 
-public interface IPerson { }
+public interface IHumanoidUnit : IUnit
+{
+    
+}

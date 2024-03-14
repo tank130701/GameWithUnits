@@ -1,6 +1,6 @@
 ﻿namespace GameWithUnits.Models.Units;
 
-interface IMechanism : IUnit
+public interface IRangedUnit : IUnit
 {
     
 }
