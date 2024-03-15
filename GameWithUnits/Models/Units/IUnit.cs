@@ -3,10 +3,10 @@
 public interface IUnit
 {
     public string Name {get;}
-    private int Armor{get=>Armor;}
-    private int Hp { get=>Hp; set{;}}
+    public int Armor{get=>Armor;}
+    public int AttackPower{get=>AttackPower; set{;}}
+    public int Hp { get=>Hp; set{;}}
     public void Attack(IUnit target);
-    private void TakeDamage(int amount){}
-    // Метод для проверки смерти
+    public void TakeDamage(int amount){}
     public bool IsDead();
 }

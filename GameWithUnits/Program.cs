@@ -7,7 +7,7 @@ static class Program
 {
     static void Main()
     {
-        List<Unit> unitsOne = new List<Unit>()
+        /* List<Unit> unitsOne = new List<Unit>()
         {
             new MeleeCreep(),
             new MeleeCreep(),
@@ -33,6 +33,6 @@ static class Program
  
         armyOne.Attack(armyTwo);
  
-        Console.ReadKey();
+        Console.ReadKey(); */
     }
 }

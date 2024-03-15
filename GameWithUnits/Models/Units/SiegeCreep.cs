@@ -1,4 +1,16 @@
 ﻿namespace GameWithUnits.Models.Units;
 
-class SiegeCreep(int minDamage = 35, int maxDamage = 46, int armor = 0, int hp = 935)
-    : Unit("Катапульта", minDamage, maxDamage, armor, hp), IMechanism {}
+class SiegeEngine : ISiegeUnit
+{
+    public string Name => throw new NotImplementedException();
+
+    public void Attack(IUnit target)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsDead()
+    {
+        throw new NotImplementedException();
+    }
+}
