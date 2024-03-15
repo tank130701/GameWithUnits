@@ -1,4 +1,5 @@
-﻿using GameWithUnits.Models.Army;
+﻿using GameWithUnits.Factories;
+using GameWithUnits.Models.Army;
 using GameWithUnits.Models.Units;
 
 namespace GameWithUnits;
@@ -7,28 +8,50 @@ static class Program
 {
     static void Main()
     {
-        List<Unit> unitsOne = new List<Unit>()
+        Console.WriteLine("Выберите уровень сложности: 1 - Легкий, 2 - Средний, 3 - Сложный");
+        string input = Console.ReadLine();
+        ArmyFactory factory;
+
+        switch (input)
         {
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new RangedCreep(),
-            new SiegeCreep(),
-        };
+            case "1":
+                factory = new EazyLvlFactory();
+                break;
+            case "2":
+                factory = new MiddleLvlFactory();
+                break;
+            case "3":
+                factory = new HardLvlFactory();
+                break;
+            default:
+                Console.WriteLine("Неверный ввод, установлен легкий уровень сложности по умолчанию.");
+                factory = new EazyLvlFactory();
+                break;
+        }
+
+        List<Unit> unitsOne =
+        [
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateRanged(),
+            factory.CreateSiege()
+        ];
+        
         Army armyOne = new Army("Силы света", unitsOne);
  
-        List<Unit> unitsTwo = new List<Unit>()
-        {
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new MeleeCreep(),
-            new RangedCreep(),
-            new SiegeCreep(),
-        };
+        List<Unit> unitsTwo =
+        [
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateMelee(),
+            factory.CreateRanged(),
+            factory.CreateSiege()
+        ];
         Army armyTwo = new Army("Силы тьмы", unitsTwo);
  
         armyOne.Attack(armyTwo);

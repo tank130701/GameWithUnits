@@ -7,7 +7,7 @@ abstract class Unit(string name, int minDamage, int maxDamage, int armor, int hp
     private int Hp { get; set; } = hp;
     
     // Метод для атаки
-    public void Attack(Unit target)
+    public int Attack(Unit target)
     {
         Random random = new Random();
         // Вычисляем урон в диапазоне от минимального до максимального
@@ -16,7 +16,8 @@ abstract class Unit(string name, int minDamage, int maxDamage, int armor, int hp
         damage -= target._armor;
         damage = Math.Max(damage, 0);
         // Уменьшаем здоровье цели на полученный урон
-        target.GetDamage(damage);    
+        target.GetDamage(damage);
+        return damage;
     }
 
     // Метод для уменьшения здоровья
@@ -29,5 +30,20 @@ abstract class Unit(string name, int minDamage, int maxDamage, int armor, int hp
     public bool IsDead()
     {
         return Hp <= 0;
+    }
+    
+    public static Unit CreateUnit(string type, int minDamage, int maxDamage, int armor, int hp)
+    {
+        switch (type)
+        {
+            case "MeleeCreep":
+                return new MeleeCreep(minDamage, maxDamage, armor, hp);
+            case "RangedCreep":
+                return new RangedCreep(minDamage, maxDamage, armor,hp);
+            case "SiegeCreep":
+                return new SiegeCreep(minDamage, maxDamage, armor, hp);
+            default:
+                throw new ArgumentException("Invalid unit type", nameof(type));
+        }
     }
 }
