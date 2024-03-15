@@ -10,7 +10,7 @@ static class Program
     {
         Console.WriteLine("Выберите уровень сложности: 1 - Легкий, 2 - Средний, 3 - Сложный");
         string input = Console.ReadLine();
-        ArmyFactory factory;
+        IFactory factory;
 
         switch (input)
         {
@@ -29,29 +29,12 @@ static class Program
                 break;
         }
 
-        List<Unit> unitsOne =
-        [
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateRanged(),
-            factory.CreateSiege()
-        ];
+        List<Unit> unitsOne = factory.Create();
         
         Army armyOne = new Army("Силы света", unitsOne);
  
-        List<Unit> unitsTwo =
-        [
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateMelee(),
-            factory.CreateRanged(),
-            factory.CreateSiege()
-        ];
+        List<Unit> unitsTwo = factory.Create();
+        
         Army armyTwo = new Army("Силы тьмы", unitsTwo);
  
         armyOne.Attack(armyTwo);

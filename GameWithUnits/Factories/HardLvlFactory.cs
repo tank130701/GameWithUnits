@@ -2,9 +2,19 @@
 
 namespace GameWithUnits.Factories;
 
-internal class HardLvlFactory : ArmyFactory
+internal class HardLvlFactory : IFactory
 {
-    public override Unit CreateMelee() => Unit.CreateUnit("MeleeCreep", 35, 40, 10, 900);
-    public override Unit CreateRanged() => Unit.CreateUnit("RangedCreep", 38, 44, 5, 700);
-    public override Unit CreateSiege() => Unit.CreateUnit("SiegeCreep", 60, 70, 10, 1500);
+    public List<Unit> Create()
+    {
+        return
+        [
+            Unit.CreateUnit("MeleeCreep", 35, 40, 10, 900),
+            Unit.CreateUnit("MeleeCreep", 35, 40, 10, 900),
+            Unit.CreateUnit("MeleeCreep", 35, 40, 10, 900),
+            Unit.CreateUnit("MeleeCreep", 35, 40, 10, 900),
+            Unit.CreateUnit("MeleeCreep", 35, 40, 10, 900),
+            Unit.CreateUnit("RangedCreep", 38, 44, 5, 700),
+            Unit.CreateUnit("SiegeCreep", 60, 70, 10, 1500)
+        ];
+    }
 }
